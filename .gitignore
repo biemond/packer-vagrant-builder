@@ -1,2 +1,3 @@
 output-virtualbox
 packer_cache
+build/*
