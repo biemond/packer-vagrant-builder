@@ -1,0 +1,69 @@
+{
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/solaris/postinstall.sh",
+        "scripts/solaris/puppet.sh",
+        "scripts/solaris/update-terminfo.sh",
+        "scripts/solaris/cleanup.sh"
+      ],
+      "override": {
+        "virtualbox": {
+          "execute_command": "pfexec bash -l {{.Path}}"
+        }
+      }
+    }
+  ],
+  "post-processors": [{
+    "output": "build/solaris10-x86_64.box",
+    "type": "vagrant"
+  }],
+  "builders": [
+    {
+      "type": "virtualbox",
+      "boot_command": [
+        "e<wait>",
+        "e<wait>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><wait>",
+        "- nowin install -B install_media=cdrom<enter><wait>",
+        "b<wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 40960,
+      "floppy_files": [
+        "floppy/sysidcfg",
+        "floppy/rules",
+        "floppy/rules.ok",
+        "floppy/begin",
+        "floppy/profile",
+        "floppy/finish"
+      ],
+      "guest_os_type": "Solaris_64",
+      "iso_checksum": "AAE1452BB3D56BAA3DCB8866CE7E4A08",
+      "iso_checksum_type": "md5",
+      "iso_url": "/Users/edwin/Downloads/V36435-01.iso",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "echo '/usr/sbin/poweroff' > shutdown.sh; pfexec bash -l shutdown.sh",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "virtualbox_version_file": ".vbox_version",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "768"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ]
+      ]
+    }
+  ]
+}
