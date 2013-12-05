@@ -1,8 +1,8 @@
 auto_reg=none
 keyboard=US-English
 terminal=vt100
-system_locale=en_GB.UTF-8
-timezone=Europe/London
+system_locale=en_US.UTF-8
+timezone=Europe/Amsterdam
 timeserver=localhost
 service_profile=limited_net
 security_policy=NONE
