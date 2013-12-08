@@ -8,7 +8,7 @@
 install_type  initial_install
 system_type   standalone
 filesys       any 30000 /
-filesys       any 1024 swap   # specify size of /swap
+filesys       any 4096 swap   # specify size of /swap
 cluster       SUNWCreq
 
 # Additional packages to allow vagrant installation (SSH) or convenient (bash, man)

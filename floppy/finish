@@ -5,7 +5,7 @@
 VAGRANTUSER='vagrant'
 
 # Selecting host name
-echo "vagrant-solaris10.dev" > /a/etc/nodename
+echo "adminsol.example.com" > /a/etc/nodename
 
 # Allowing root SSH
 cat /a/etc/ssh/sshd_config | sed -e 's/PermitRootLogin\ .*$/PermitRootLogin yes/g' > /tmp/sshd_config.$$
