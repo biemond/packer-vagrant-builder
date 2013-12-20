@@ -8,7 +8,7 @@
 install_type  initial_install
 system_type   standalone
 filesys       any 30000 /
-filesys       any 4096 swap   # specify size of /swap
+filesys       any 8096 swap   # specify size of /swap
 cluster       SUNWCreq
 
 # Additional packages to allow vagrant installation (SSH) or convenient (bash, man)
@@ -20,6 +20,22 @@ package      SUNWsshu add
 package      SUNWbash add
 package      SUNWman add
 package      SUNWdoc add
+package      SUNWarc add
+package      SUNWbtool add
+package      SUNWcsl add
+package      SUNWdtrc add
+package      SUNWeu8os add
+package      SUNWhea add
+package      SUNWi1cs add
+package      SUNWi15cs add
+package      SUNWlibC add
+package      SUNWlibm add
+package      SUNWlibms add
+package      SUNWsprot add
+package      SUNWpool add
+package      SUNWpoolr add
+package      SUNWtoo add
+package      SUNWxwfnt add
 
 # For GCC (partially from https://wiki.chipp.ch/twiki/bin/view/CmsTier3/InstallationSolaris)
 package      SUNWarc add
