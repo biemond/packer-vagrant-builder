@@ -1,3 +1,4 @@
 output-virtualbox
 packer_cache
 build/*
+*.vdi

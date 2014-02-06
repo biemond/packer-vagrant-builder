@@ -21,7 +21,7 @@
   }],
   "builders": [
     {
-      "type": "virtualbox",
+      "type": "virtualbox-iso",
       "boot_command": [
         "e<wait>",
         "e<wait>",

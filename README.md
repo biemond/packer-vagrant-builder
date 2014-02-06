@@ -6,9 +6,9 @@
 * Ubuntu 12.04 LTS (Precise Pangolin) 64-bit
 
 
-Download packer
+Download packer, tested it with Packer 0.5.1
 
-export PATH=/Users/edwin/0.3.11_darwin_amd64:$PATH
+export PATH=~/0.5.1_darwin_amd64:$PATH
 
 * packer build centos-5.8-x86_64.json
 * packer build centos-6.4-x86_64.json

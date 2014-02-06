@@ -1,13 +1,13 @@
 {
   "builders": [{
-    "type": "virtualbox",
+    "type": "virtualbox-iso",
     "virtualbox_version_file": ".vbox_version",
     "headless": false,
 
     "guest_os_type": "RedHat_64",
     "disk_size": 40960,
 
-    "iso_url": "http://mirrors.kernel.org/centos/6.4/isos/x86_64/CentOS-6.4-x86_64-minimal.iso",
+    "iso_url": "http://mirror.nsc.liu.se/centos-store/6.4/isos/x86_64/CentOS-6.4-x86_64-minimal.iso",
     "iso_checksum": "6232efa014d9c6798396b63152c4c9a08b279f5e",
     "iso_checksum_type": "sha1",
 

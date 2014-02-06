@@ -1,6 +1,6 @@
 {
   "builders": [{
-    "type": "virtualbox",
+    "type": "virtualbox-iso",
     "virtualbox_version_file": ".vbox_version",
     "headless": false,
 
