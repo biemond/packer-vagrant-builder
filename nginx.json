@@ -1,0 +1,62 @@
+{
+  "builders": [
+    {
+      "type": "docker",
+      "image": "mmckeen/opensuse-13-1",
+      "export_path": "mmckeen.net.tar"
+    },
+    {
+      "type": "virtualbox-ovf",
+      "source_path": "./openSUSE_13.1_Packer_Base-1.0.0/openSUSE_13.1_Packer_Base.x86_64-1.0.0.ovf",
+      "ssh_username": "root",
+      "ssh_password": "",
+      "ssh_wait_timeout": "2m",
+      "vboxmanage": [
+        ["modifyvm", "", "--nic1", "nat"]
+      ],
+      "shutdown_command": "shutdown -P now"     
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+                  "zypper -n ref",
+                  "zypper -n up",
+                  "zypper -n in nginx"
+                ]
+    },
+    {
+      "type": "shell",
+      "only": ["docker"],
+      "inline": [
+                  "echo 'daemon off;' >> /etc/nginx/nginx.conf"
+                ]
+    },
+    {
+      "type": "shell",
+      "only": ["virtualbox-ovf"],
+      "inline": [
+                  "useradd vagrant",
+                  "echo 'vagrant    ALL = NOPASSWD: ALL' > /etc/sudoers",
+                  "mkdir -p /home/vagrant/.ssh",
+                  "wget --no-check-certificate -O authorized_keys 'https://github.com/mitchellh/vagrant/raw/master/keys/vagrant.pub'",
+                  "mv authorized_keys /home/vagrant/.ssh/",
+                  "chown -R vagrant /home/vagrant/.ssh"
+                ]
+    },
+    {
+      "type": "file",
+      "source": "/srv/www/mmckeen.net/",
+      "destination": "/srv/www/htdocs/"      
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "only": ["virtualbox-ovf"],
+      "output": "mmckeen_net_virtualbox.box",
+      "vagrantfile_template": "./Vagrantfile.template"
+    } 
+  ]
+}
