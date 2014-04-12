@@ -1,4 +1,4 @@
-output-virtualbox
+output-virtualbox-iso/*
 packer_cache
 build/*
 *.vdi
