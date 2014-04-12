@@ -1,6 +1,0 @@
-
-
-
-https://index.docker.io/u/xaas/wls-base-domain/
-docker pull  xaas/wls-base-domain
-docker run -i -t xaas/wls-base-domain /bin/bash

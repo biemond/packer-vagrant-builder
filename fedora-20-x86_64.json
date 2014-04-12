@@ -40,10 +40,13 @@
     "type": "shell",
     "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
     "scripts": [
+      "scripts/fedora/fix-slow-dns.sh",
+      "scripts/sshd.sh",
       "scripts/vagrant.sh",
       "scripts/puppet-bootstrap/fedora_20.sh",
       "scripts/vboxguest.sh",
-      "scripts/compact.sh"
+      "scripts/fedora/cleanup.sh",
+      "scripts/minimize.sh"
     ]
   }]
 }
