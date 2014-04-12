@@ -41,7 +41,7 @@
     "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
     "scripts": [
       "scripts/vagrant.sh",
-      "scripts/puppet-bootstrap/centos_6_x.sh",
+      "scripts/puppet-bootstrap/fedora_20.sh",
       "scripts/vboxguest.sh",
       "scripts/compact.sh"
     ]
