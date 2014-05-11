@@ -1,21 +1,18 @@
 {
   "provisioners": [
     {
+      "execute_command": "chmod +x {{ .Path }}; export {{.Vars}} && cat {{.Path}} | pfexec su ",
       "type": "shell",
       "scripts": [
         "scripts/solaris/postinstall.sh",
         "scripts/solaris/puppet.sh",
         "scripts/solaris/update-terminfo.sh",
         "scripts/solaris/cleanup.sh"
-      ],
-      "override": {
-        "virtualbox": {
-          "execute_command": "pfexec bash -l {{.Path}}"
-        }
-      }
+      ]
     }
   ],
   "post-processors": [{
+    "compression_level": 9,
     "output": "build/solaris10-x86_64.box",
     "type": "vagrant"
   }],
@@ -40,22 +37,24 @@
         "floppy/finish"
       ],
       "guest_os_type": "Solaris_64",
-      "iso_checksum": "AAE1452BB3D56BAA3DCB8866CE7E4A08",
-      "iso_checksum_type": "md5",
-      "iso_url": "/Users/edwin/Downloads/V36435-01.iso",
+      "iso_checksum": "c27e5fe2531826192f110e2d9f1f5d73015edac6",
+      "iso_checksum_type": "sha1",
+      "iso_url": "/Users/edwin/Downloads/sol-10-u11-ga-x86-dvd.iso",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
       "shutdown_command": "echo '/usr/sbin/poweroff' > shutdown.sh; pfexec bash -l shutdown.sh",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "output_directory": "packer-solaris10-virtualbox",
       "virtualbox_version_file": ".vbox_version",
+      "vm_name": "packer-solaris-10",
       "vboxmanage": [
         [
           "modifyvm",
           "{{.Name}}",
           "--memory",
-          "768"
+          "1536"
         ],
         [
           "modifyvm",

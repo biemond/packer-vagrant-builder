@@ -1,0 +1,102 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "boot_command": [
+        "27<enter><wait>",
+        "3<enter><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10>",
+        "1<enter><wait10><wait10>",
+        "<f2><wait><wait><wait>",
+        "<f2><wait>",
+        "<f2><wait>",
+        "<f2><wait>",
+        "-vagrant<wait><tab>",
+        "<f2><wait>",
+        "<tab><tab><tab><tab><tab><tab><tab><wait>",
+        "<f2><wait>",
+        "<f2><wait>",
+        "<tab><tab><tab><wait>",
+        "<f2><wait>",
+        "<f2><wait>",
+        "vagrant123<tab><wait>",
+        "vagrant123<tab><wait>",
+        "vagrant<tab><wait>",
+        "vagrant<tab><wait>",
+        "1vagrant<tab><wait>",
+        "1vagrant<tab><wait>",
+        "<f2><wait>",
+        "<f2><wait>",
+        "<f2><wait>",
+        "<f2><wait>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10>",
+        "<f8><wait10><wait10>",
+        "<enter><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10>",
+        "vagrant<enter><wait>",
+        "1vagrant<enter><wait>",
+        "sudo bash<enter><wait>",
+        "1vagrant<enter><wait>",
+        "echo 'vagrant ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers<enter><wait>",
+        "/usr/gnu/bin/sed -i 's/^.*requiretty/#Defaults requiretty/' /etc/sudoers<enter><wait>",
+        "exit<enter><wait>"
+      ],
+      "boot_wait": "95s",
+      "disk_size": 40960,
+      "guest_os_type": "Solaris11_64",
+      "iso_checksum": "1d0efbffe1b194959c1a3d3c8b8d801411c54278",
+      "iso_checksum_type": "sha1",
+      "iso_url": "/Users/edwin/Downloads/sol-11_1-text-x86.iso",
+      "output_directory": "packer-solaris11-virtualbox",
+      "shutdown_command": "echo '/usr/sbin/poweroff' > shutdown.sh; pfexec bash -l shutdown.sh",
+      "ssh_password": "1vagrant",
+      "ssh_port": 22,
+      "ssh_username": "vagrant",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "1536"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ]
+      ],
+      "virtualbox_version_file": ".vbox_version",
+      "vm_name": "packer-solaris-11"
+    }
+  ],
+  "post-processors": [
+    {
+      "compression_level": 9,
+      "output": "build/solaris11-x86_64.box",
+      "type": "vagrant"
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "scripts": [
+        "scripts/solaris/postinstall_11.sh"
+      ],
+      "type": "shell"
+    }
+  ]
+}

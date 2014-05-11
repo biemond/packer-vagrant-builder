@@ -2,3 +2,7 @@ output-virtualbox-iso/*
 packer_cache
 build/*
 *.vdi
+
+*.vmdk
+
+*.ovf
