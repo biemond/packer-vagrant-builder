@@ -64,7 +64,7 @@
       "iso_checksum_type": "sha1",
       "iso_url": "/Users/edwin/Downloads/sol-11_2-beta-text-x86.iso",
       "output_directory": "packer-solaris11_2b-virtualbox",
-      "shutdown_command": "sudo /usr/sbin/init 5",
+      "shutdown_command": "echo '/usr/sbin/poweroff' > shutdown.sh; pfexec bash -l shutdown.sh",
       "ssh_password": "1vagrant",
       "ssh_port": 22,
       "ssh_username": "vagrant",
