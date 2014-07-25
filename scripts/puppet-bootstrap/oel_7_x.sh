@@ -16,12 +16,21 @@ if which puppet > /dev/null 2>&1; then
   exit 0
 fi
 
+
+
 # Install puppet labs repo
 echo "Configuring PuppetLabs repo..."
 repo_path=$(mktemp)
-wget --output-document=${repo_path} ${REPO_URL}
-echo "add rpm"
-rpm -i ${repo_path}
+wget --output-document=${repo_path} ${REPO_URL} 2>/dev/null
+rpm -i ${repo_path} >/dev/null
+
+# for selinux ruby versions
+echo "[rhel-7-server-optional-rpms]
+name = Red Hat Enterprise Linux 7 Server - Optional (RPMs)
+baseurl = http://mirror.centos.org/centos/7/os/x86_64/
+enabled = 1
+gpgcheck = 0" >/etc/yum.repos.d/centos7_optional.repo
+
 
 # Install Puppet...
 echo "Installing puppet"
