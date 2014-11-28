@@ -10,6 +10,7 @@ export PATH
 yes|/usr/sbin/pkgadd -d http://mirror.opencsw.org/opencsw/pkgutil-`uname -p`.pkg all
 /opt/csw/bin/pkgutil -U
 
+
 # get 'sudo'
 /opt/csw/bin/pkgutil -y -i CSWsudo
 chgrp 0 /etc/opt/csw/sudoers
@@ -61,6 +62,9 @@ DEV=`/usr/sbin/lofiadm -a /export/home/vagrant/VBoxGuestAdditions.iso`
 /usr/sbin/umount /mnt
 /usr/sbin/lofiadm -d $DEV
 rm -f VBoxGuestAdditions.iso
+
+
+
 
 ## Add loghost to /etc/hosts
 /opt/csw/bin/gsed -i -e 's/localhost/localhost loghost/g' /etc/hosts

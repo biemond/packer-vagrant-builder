@@ -7,6 +7,7 @@
         "3<enter><wait10>",
         "<wait10><wait10><wait10><wait10><wait10>",
         "1<enter><wait10><wait10>",
+        "<wait10><wait10>",
         "<f2><wait><wait><wait>",
         "<f2><wait>",
         "<f2><wait>",
@@ -40,8 +41,6 @@
         "<wait10><wait10><wait10><wait10><wait10><wait10>",
         "<wait10><wait10><wait10><wait10><wait10><wait10>",
         "<wait10><wait10><wait10><wait10><wait10><wait10>",
-        "<wait10><wait10><wait10><wait10><wait10><wait10>",
-        "<wait10><wait10><wait10><wait10><wait10><wait10>",
         "<wait10><wait10>",
         "<f8><wait10><wait10>",
         "<enter><wait10>",
@@ -57,13 +56,13 @@
         "/usr/gnu/bin/sed -i 's/^.*requiretty/#Defaults requiretty/' /etc/sudoers<enter><wait>",
         "exit<enter><wait>"
       ],
-      "boot_wait": "95s",
+      "boot_wait": "105s",
       "disk_size": 40960,
       "guest_os_type": "Solaris11_64",
-      "iso_checksum": "7b2a114a6a9b6736d3ab6acbd0473d84e66465d5",
-      "iso_checksum_type": "sha1",
-      "iso_url": "/Users/edwin/Downloads/sol-11_2-beta-text-x86.iso",
-      "output_directory": "packer-solaris11_2b-virtualbox",
+      "iso_checksum": "c09f40ed91d43b0adf109c124154a2b4",
+      "iso_checksum_type": "md5",
+      "iso_url": "/Users/edwin/Downloads/sol-11_2-text-x86.iso",
+      "output_directory": "packer-solaris11_2-virtualbox",
       "shutdown_command": "echo '/usr/sbin/poweroff' > shutdown.sh; pfexec bash -l shutdown.sh",
       "ssh_password": "1vagrant",
       "ssh_port": 22,
@@ -73,7 +72,7 @@
           "modifyvm",
           "{{.Name}}",
           "--memory",
-          "1536"
+          "2048"
         ],
         [
           "modifyvm",
@@ -83,13 +82,13 @@
         ]
       ],
       "virtualbox_version_file": ".vbox_version",
-      "vm_name": "packer-solaris-11_2b"
+      "vm_name": "packer-solaris-11_2"
     }
   ],
   "post-processors": [
     {
       "compression_level": 9,
-      "output": "build/solaris11_2beta-x86_64.box",
+      "output": "build/solaris11_2-x86_64.box",
       "type": "vagrant"
     }
   ],
@@ -97,7 +96,7 @@
     {
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "scripts": [
-        "scripts/solaris/postinstall_11.2_beta.sh"
+        "scripts/solaris/postinstall_11.2.sh"
       ],
       "type": "shell"
     }
