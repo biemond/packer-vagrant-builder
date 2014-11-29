@@ -18,6 +18,29 @@ ln -s /etc/opt/csw/sudoers /etc/sudoers
 /opt/csw/bin/pkgutil -y -i CSWwget CSWgtar CSWgsed CSWvim
 
 
+
+## Ruby
+/opt/csw/bin/pkgutil -y -i CSWgsed
+/opt/csw/bin/pkgutil -y -i CSWruby18-gcc4 CSWruby18-dev CSWruby18
+/opt/csw/bin/pkgutil -y -i CSWrubygems
+
+# puppet
+/opt/csw/bin/pkgutil -y -i CSWaugeas
+/opt/csw/bin/pkgutil -y -i CSWrubyaugeas
+
+/opt/csw/bin/gem install puppet  --no-ri --no-rdoc
+
+
+mkdir -p /etc/puppet
+mkdir -p /etc/puppet/modules
+
+mkdir -p /opt/puppet/var
+mkdir -p /opt/puppet/log
+mkdir -p /opt/puppet/run
+mkdir -p /opt/puppet/share/modules
+mkdir -p /var/lib
+
+
 # setup the vagrant key
 # you can replace this key-pair with your own generated ssh key-pair
 echo "Setting the vagrant ssh pub key"
@@ -90,6 +113,7 @@ rm -f VBoxGuestAdditions.iso
 
 ## Add loghost to /etc/hosts
 /opt/csw/bin/gsed -i -e 's/localhost/localhost loghost/g' /etc/hosts
+
 
 
 /usr/bin/cat <<'EOFTIC' > /tmp/terminfo.src

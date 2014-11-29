@@ -7,6 +7,9 @@ date > /etc/vagrant_box_build_time
 PATH=/usr/bin:/usr/sbin:$PATH
 export PATH
 
+pkg update pkg:/package/pkg || true
+pkg update --accept         || true
+
 yes|/usr/sbin/pkgadd -d http://mirror.opencsw.org/opencsw/pkgutil-`uname -p`.pkg all
 /opt/csw/bin/pkgutil -U
 
@@ -17,6 +20,28 @@ chgrp 0 /etc/opt/csw/sudoers
 ln -s /etc/opt/csw/sudoers /etc/sudoers
 # get 'wget', 'GNU tar' and 'GNU sed' (also needed for Ruby)
 /opt/csw/bin/pkgutil -y -i CSWwget CSWgtar CSWgsed CSWvim
+
+
+## Ruby
+/opt/csw/bin/pkgutil -y -i CSWgsed
+/opt/csw/bin/pkgutil -y -i CSWruby18-gcc4 CSWruby18-dev CSWruby18
+/opt/csw/bin/pkgutil -y -i CSWrubygems
+
+# puppet
+/opt/csw/bin/pkgutil -y -i CSWaugeas
+/opt/csw/bin/pkgutil -y -i CSWrubyaugeas
+
+/opt/csw/bin/gem install puppet  --no-ri --no-rdoc
+
+
+mkdir -p /etc/puppet
+mkdir -p /etc/puppet/modules
+
+mkdir -p /opt/puppet/var
+mkdir -p /opt/puppet/log
+mkdir -p /opt/puppet/run
+mkdir -p /opt/puppet/share/modules
+mkdir -p /var/lib
 
 
 # setup the vagrant key
