@@ -1,9 +1,9 @@
 {
   "variables": {
     "iso_location": "/Users/edwin/Downloads",
-    "harddisk_size": "40960",
-    "vm_name": "OEL7_0",
-    "outputfile": "OEL7_0.box",
+    "harddisk_size": "50960",
+    "vm_name": "OEL6_6",
+    "outputfile": "OEL6_6.box",
     "compression": 6
   },
   "builders": [{
@@ -18,12 +18,12 @@
     "hard_drive_interface": "sata",
     "disk_size": "{{user `harddisk_size`}}",
 
-    "iso_url": "{{user `iso_location`}}/OracleLinux-R7-U0-Server-x86_64-dvd.iso",
-    "iso_checksum": "14107114f3eece76d16e5ec3fee5f524b09f9829b0ac38474ee676ddd4d2b9c2",
-    "iso_checksum_type": "sha256",
+    "iso_url": "{{user `iso_location`}}/OracleLinux-R6-U6-Server-x86_64-dvd.iso",
+    "iso_checksum": "5738f10a506d3630edfd297ef179b553091c6a48",
+    "iso_checksum_type": "sha1",
 
     "boot_command": [
-      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL7_0-x86_64/ks.cfg<enter><wait>"
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL6_6-x86_64/ks.cfg<enter><wait>"
     ],
     "boot_wait": "12s",
 
@@ -47,7 +47,7 @@
     "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
     "scripts": [
       "scripts/afterconfig.sh",
-      "scripts/puppet-bootstrap/centos_7_x.sh",
+      "scripts/puppet-bootstrap/centos_6_x.sh",
       "scripts/vboxguest.sh",
       "scripts/compact.sh"
     ]

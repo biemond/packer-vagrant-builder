@@ -30,6 +30,7 @@ export PATH=~/0.7.1_darwin_amd64:$PATH
 * packer-packer build solaris11_2.json
 
 * packer-packer build oracle-linux-6.5-x86_64.json
+* packer-packer build oracle-linux-6.6-x86_64.json
 * packer-packer build oracle-linux-7.0-x86_64.json
 
 Oracle Linux 7 has btrfs as filesystem
