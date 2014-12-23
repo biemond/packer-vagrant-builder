@@ -23,7 +23,8 @@ export PATH=~/0.7.1_darwin_amd64:$PATH
 * packer-packer build centos-5.10-x86_64.json
 * packer-packer build centos-6.4-x86_64.json
 * packer-packer build centos-6.5-x86_64.json
-* packer-packer build centos-6.6-x86_64.json
+* packer-packer build -only=virtualbox-iso centos-6.6-x86_64.json
+* packer-packer build -only=vmware-iso centos-6.6-x86_64.json
 * packer-packer build centos-7.0-x86_64.json
 * packer-packer build fedora-20-x86_64.json
 * packer-packer build ubuntu-12.04-amd64.json
