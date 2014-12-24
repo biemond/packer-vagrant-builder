@@ -5,7 +5,7 @@
     "headless": false,
 
     "guest_os_type": "RedHat_64",
-    "disk_size": 40960,
+    "disk_size": 80960,
 
     "iso_url": "http://mirrors.kernel.org/centos/7.0.1406/isos/x86_64/CentOS-7.0-1406-x86_64-Minimal.iso",
     "iso_checksum": "495a7d50eb7633c4667fbfc5e817bf244697c627",
@@ -30,10 +30,47 @@
     ],
 
     "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p"
+  },
+  {
+    "type": "vmware-iso",
+    "headless": true,
+
+    "guest_os_type": "centos-64",
+    "disk_size": 80960,
+
+    "iso_url": "http://mirrors.kernel.org/centos/7.0.1406/isos/x86_64/CentOS-7.0-1406-x86_64-Minimal.iso",
+    "iso_checksum": "495a7d50eb7633c4667fbfc5e817bf244697c627",
+    "iso_checksum_type": "sha1",
+
+    "boot_command": [
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-7.0-x86_64/ks.cfg<enter><wait>"
+    ],
+    "boot_wait": "12s",
+
+    "http_directory": "http",
+    "tools_upload_flavor": "linux",
+
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_port": 22,
+    "ssh_wait_timeout": "10000s",
+
+    "vmx_data": {
+        "memsize": "512",
+        "numvcpus": "1",
+        "vhv.enable": "TRUE"
+    },
+    "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p"
   }],
   "post-processors": [{
     "output": "build/centos-7.0-x86_64.box",
-    "type": "vagrant"
+    "type": "vagrant",
+    "only": ["virtualbox-iso"]
+  },
+  {
+    "output": "build/centos-7.0-x86_64-{{.Provider}}.box",
+    "type": "vagrant",
+    "only": ["vmware-iso"]
   }],
   "provisioners": [{
     "type": "shell",
@@ -42,7 +79,19 @@
       "scripts/vagrant.sh",
       "scripts/puppet-bootstrap/centos_7_x.sh",
       "scripts/vboxguest.sh",
+      "scripts/centos_7_x_network.sh",
       "scripts/compact.sh"
-    ]
+    ],
+    "override": {
+      "vmware-iso": {
+        "scripts": [
+          "scripts/vagrant.sh",
+          "scripts/puppet-bootstrap/centos_7_x.sh",
+          "scripts/centos_7_x_vmtools.sh",
+          "scripts/centos_7_x_network.sh",
+          "scripts/compact.sh"
+         ]
+       }
+    }
   }]
 }

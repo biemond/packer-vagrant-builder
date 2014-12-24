@@ -87,7 +87,7 @@
         "scripts": [
           "scripts/vagrant.sh",
           "scripts/puppet-bootstrap/centos_6_x.sh",
-          "scripts/vmtools.sh",
+          "scripts/centos_6_x_vmtools.sh",
           "scripts/centos_6_x_network.sh",
           "scripts/compact.sh"
          ]
