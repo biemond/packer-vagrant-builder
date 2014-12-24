@@ -60,7 +60,6 @@
         "numvcpus": "1",
         "vhv.enable": "TRUE"
     },
-
     "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p"
   }],
   "post-processors": [{
@@ -80,6 +79,7 @@
       "scripts/vagrant.sh",
       "scripts/puppet-bootstrap/centos_6_x.sh",
       "scripts/vboxguest.sh",
+      "scripts/centos_6_x_network.sh",
       "scripts/compact.sh"
     ],
     "override": {
@@ -88,6 +88,7 @@
           "scripts/vagrant.sh",
           "scripts/puppet-bootstrap/centos_6_x.sh",
           "scripts/vmtools.sh",
+          "scripts/centos_6_x_network.sh",
           "scripts/compact.sh"
          ]
        }
