@@ -1,7 +1,7 @@
 {
   "variables": {
     "iso_location": "/Users/edwin/Downloads",
-    "harddisk_size": "40960",
+    "harddisk_size": "60960",
     "vm_name": "OEL7_0",
     "outputfile": "OEL7_0.box",
     "compression": 6
@@ -11,7 +11,7 @@
     "output_directory": "build/{{user `vm_name`}}",
     "type": "virtualbox-iso",
     "virtualbox_version_file": ".vbox_version",
-    "headless": true,
+    "headless": false,
 
     "guest_os_type": "Oracle_64",
 
