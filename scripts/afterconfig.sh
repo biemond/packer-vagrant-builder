@@ -8,3 +8,6 @@ chmod -R go-rwsx /home/vagrant/.ssh
 
 
 yum install -y net-tools bind-utils nfs-common portmap rpcbind libgssglue nfs-utils keyutils libevent nfs-utils-lib
+
+yum -y update
+yum -y clean all

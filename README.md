@@ -14,6 +14,7 @@ make sure you create folder called build in this repos
 * Oracle Linux 6.5 64-bit
 * Oracle Linux 6.6 64-bit
 * Oracle Linux 7.0 64-bit
+* Oracle Linux 7.1 64-bit
 
 Download packer at http://packer.io, tested it with Packer 0.7.5
 
@@ -40,6 +41,7 @@ export PATH=~/packer_0.7.5_darwin_amd64:$PATH
 * packer build oracle-linux-6.5-x86_64.json
 * packer build oracle-linux-6.6-x86_64.json
 * packer build oracle-linux-7.0-x86_64.json
+* packer build oracle-linux-7.1-x86_64.json
 
 Oracle Linux 7 has
 - btrfs as filesystem

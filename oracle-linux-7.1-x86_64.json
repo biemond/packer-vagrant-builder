@@ -1,0 +1,62 @@
+{
+  "variables": {
+    "iso_location": "/Users/edwin/Downloads",
+    "harddisk_size": "40960",
+    "vm_name": "OEL7_1",
+    "outputfile": "OEL7_1.box",
+    "compression": 6
+  },
+  "builders": [{
+    "vm_name": "{{user `vm_name`}}",
+    "output_directory": "build/{{user `vm_name`}}",
+    "type": "virtualbox-iso",
+    "virtualbox_version_file": ".vbox_version",
+    "headless": false,
+
+    "guest_os_type": "Oracle_64",
+
+    "hard_drive_interface": "sata",
+    "disk_size": "{{user `harddisk_size`}}",
+
+    "iso_url": "{{user `iso_location`}}/OracleLinux-R7-U1-Server-x86_64-dvd.iso",
+    "iso_checksum": "0eb3b9d205f470d9a2868b32b5df1541363aeb46a40c62baf23e3c82722c915a",
+    "iso_checksum_type": "sha256",
+
+    "boot_command": [
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL7_1-x86_64/ks.cfg<enter><wait>"
+    ],
+    "boot_wait": "12s",
+
+    "http_directory": "http",
+    "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_port": 22,
+    "ssh_wait_timeout": "10000s",
+
+    "vboxmanage": [
+      ["modifyvm", "{{.Name}}", "--memory", "512"],
+      ["modifyvm", "{{.Name}}", "--cpus", "1"]
+    ],
+
+    "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+    "scripts": [
+      "scripts/afterconfig.sh",
+      "scripts/puppet-bootstrap/centos_7_x.sh",
+      "scripts/vboxguest.sh",
+      "scripts/compact.sh"
+    ]
+  }],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "output": "build/{{user `outputfile`}}",
+      "compression_level": "{{user `compression`}}"
+    }
+  ]
+}
