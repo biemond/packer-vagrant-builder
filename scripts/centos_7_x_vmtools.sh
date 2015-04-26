@@ -14,3 +14,5 @@ umount /tmp/vmfusion
 rm -rf  /tmp/vmfusion
 rm -rf  /tmp/vmfusion-archive
 rm /home/vagrant/*.iso
+
+echo "answer AUTO_KMODS_ENABLED yes" | sudo tee -a /etc/vmware-tools/locations
