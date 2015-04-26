@@ -1,9 +1,8 @@
 {
   "variables": {
     "iso_location": "/Users/edwin/Downloads",
-    "harddisk_size": "50960",
+    "harddisk_size": "80960",
     "vm_name": "OEL6_6",
-    "outputfile": "OEL6_6.box",
     "compression": 6
   },
   "builders": [{
@@ -41,22 +40,67 @@
     ],
 
     "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p"
+  },
+  {
+    "type": "vmware-iso",
+    "headless": false,
+
+    "disk_size": "{{user `harddisk_size`}}",
+
+    "iso_url": "{{user `iso_location`}}/OracleLinux-R6-U6-Server-x86_64-dvd.iso",
+    "iso_checksum": "5738f10a506d3630edfd297ef179b553091c6a48",
+    "iso_checksum_type": "sha1",
+
+    "boot_command": [
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL6_6-x86_64/ks.cfg<enter><wait>"
+    ],
+    "boot_wait": "12s",
+
+    "http_directory": "http",
+    "tools_upload_flavor": "linux",
+
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_port": 22,
+    "ssh_wait_timeout": "10000s",
+
+    "vmx_data": {
+        "memsize": "1024",
+        "numvcpus": "1",
+        "vhv.enable": "TRUE"
+    },
+    "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p"
   }],
   "provisioners": [{
     "type": "shell",
     "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
     "scripts": [
-      "scripts/afterconfig.sh",
+      "scripts/vagrant.sh",
       "scripts/puppet-bootstrap/centos_6_x.sh",
       "scripts/vboxguest.sh",
+      "scripts/centos_6_x_network.sh",
       "scripts/compact.sh"
-    ]
-  }],
-  "post-processors": [
-    {
-      "type": "vagrant",
-      "output": "build/{{user `outputfile`}}",
-      "compression_level": "{{user `compression`}}"
+    ],
+    "override": {
+      "vmware-iso": {
+        "scripts": [
+          "scripts/vagrant.sh",
+          "scripts/puppet-bootstrap/centos_6_x.sh",
+          "scripts/centos_6_x_vmtools.sh",
+          "scripts/centos_6_x_network.sh",
+          "scripts/compact.sh"
+         ]
+       }
     }
-  ]
+  }],
+  "post-processors": [{
+    "output": "build/{{user `vm_name`}}-x86_64.box",
+    "type": "vagrant",
+    "only": ["virtualbox-iso"]
+  },
+  {
+    "output": "build/{{user `vm_name`}}-x86_64-{{.Provider}}.box",
+    "type": "vagrant",
+    "only": ["vmware-iso"]
+  }]
 }

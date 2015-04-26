@@ -40,8 +40,11 @@ export PATH=~/packer_0.7.5_darwin_amd64:$PATH
 
 * packer build oracle-linux-6.5-x86_64.json
 * packer build oracle-linux-6.6-x86_64.json
+* packer build -only=virtualbox-iso oracle-linux-6.6-x86_64.json
+* packer build -only=vmware-iso oracle-linux-6.6-x86_64.json
 * packer build oracle-linux-7.0-x86_64.json
-* packer build oracle-linux-7.1-x86_64.json
+* packer build -only=virtualbox-iso oracle-linux-7.1-x86_64.json
+* packer build -only=vmware-iso oracle-linux-7.1-x86_64.json
 
 Oracle Linux 7 has
 - btrfs as filesystem

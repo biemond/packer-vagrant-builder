@@ -14,8 +14,8 @@
     "headless": false,
 
     "guest_os_type": "Oracle_64",
-
     "hard_drive_interface": "sata",
+
     "disk_size": "{{user `harddisk_size`}}",
 
     "iso_url": "{{user `iso_location`}}/OracleLinux-R7-U0-Server-x86_64-dvd.iso",
