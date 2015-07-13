@@ -1,7 +1,9 @@
-/opt/csw/bin/pkgutil -y -i CSWaugeas
-/opt/csw/bin/pkgutil -y -i CSWrubyaugeas
+# /opt/csw/bin/pkgutil -y -i CSWaugeas
+# /opt/csw/bin/pkgutil -y -i CSWrubyaugeas
 
-/opt/csw/bin/gem install puppet  --no-ri --no-rdoc
+# /opt/csw/bin/gem install puppet  --no-ri --no-rdoc
+
+/opt/csw/bin/pkgutil -y -i CSWpuppet3
 
 
 mkdir -p /etc/puppet
