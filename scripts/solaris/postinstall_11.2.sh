@@ -24,15 +24,15 @@ ln -s /etc/opt/csw/sudoers /etc/sudoers
 
 ## Ruby
 /opt/csw/bin/pkgutil -y -i CSWgsed
-/opt/csw/bin/pkgutil -y -i CSWruby18-gcc4 CSWruby18-dev CSWruby18
-/opt/csw/bin/pkgutil -y -i CSWrubygems
+# /opt/csw/bin/pkgutil -y -i CSWruby18-gcc4 CSWruby18-dev CSWruby18
+# /opt/csw/bin/pkgutil -y -i CSWrubygems
 
 # puppet
-/opt/csw/bin/pkgutil -y -i CSWaugeas
-/opt/csw/bin/pkgutil -y -i CSWrubyaugeas
+# /opt/csw/bin/pkgutil -y -i CSWaugeas
+# /opt/csw/bin/pkgutil -y -i CSWrubyaugeas
 
-/opt/csw/bin/gem install puppet  --no-ri --no-rdoc
-
+# /opt/csw/bin/gem install puppet -v 3.8.1 --no-ri --no-rdoc
+/opt/csw/bin/pkgutil -y -i CSWpuppet3
 
 mkdir -p /etc/puppet
 mkdir -p /etc/puppet/modules
