@@ -15,9 +15,9 @@ yes|/usr/sbin/pkgadd -d http://mirror.opencsw.org/opencsw/pkgutil-`uname -p`.pkg
 
 
 # get 'sudo'
-/opt/csw/bin/pkgutil -y -i CSWsudo
-chgrp 0 /etc/opt/csw/sudoers
-ln -s /etc/opt/csw/sudoers /etc/sudoers
+# /opt/csw/bin/pkgutil -y -i CSWsudo
+# chgrp 0 /etc/opt/csw/sudoers
+# ln -s /etc/opt/csw/sudoers /etc/sudoers
 # get 'wget', 'GNU tar' and 'GNU sed' (also needed for Ruby)
 /opt/csw/bin/pkgutil -y -i CSWwget CSWgtar CSWgsed CSWvim
 

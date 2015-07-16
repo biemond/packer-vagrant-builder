@@ -11,9 +11,9 @@ yes|/usr/sbin/pkgadd -d http://ftp.uni-erlangen.de/pub/mirrors/csw/pkgutil-`unam
 /opt/csw/bin/pkgutil -U
 
 # get 'sudo'
-/opt/csw/bin/pkgutil -y -i CSWsudo
-chgrp 0 /etc/opt/csw/sudoers
-ln -s /etc/opt/csw/sudoers /etc/sudoers
+# /opt/csw/bin/pkgutil -y -i CSWsudo
+# chgrp 0 /etc/opt/csw/sudoers
+# ln -s /etc/opt/csw/sudoers /etc/sudoers
 # get 'wget', 'GNU tar' and 'GNU sed' (also needed for Ruby)
 /opt/csw/bin/pkgutil -y -i CSWwget CSWgtar CSWgsed CSWvim
 
@@ -21,15 +21,15 @@ ln -s /etc/opt/csw/sudoers /etc/sudoers
 
 ## Ruby
 /opt/csw/bin/pkgutil -y -i CSWgsed
-/opt/csw/bin/pkgutil -y -i CSWruby18-gcc4 CSWruby18-dev CSWruby18
-/opt/csw/bin/pkgutil -y -i CSWrubygems
+# /opt/csw/bin/pkgutil -y -i CSWruby18-gcc4 CSWruby18-dev CSWruby18
+# /opt/csw/bin/pkgutil -y -i CSWrubygems
 
-# puppet
-/opt/csw/bin/pkgutil -y -i CSWaugeas
-/opt/csw/bin/pkgutil -y -i CSWrubyaugeas
+# # puppet
+# /opt/csw/bin/pkgutil -y -i CSWaugeas
+# /opt/csw/bin/pkgutil -y -i CSWrubyaugeas
 
-/opt/csw/bin/gem install puppet  --no-ri --no-rdoc
-
+# /opt/csw/bin/gem install puppet  --no-ri --no-rdoc
+/opt/csw/bin/pkgutil -y -i CSWpuppet3
 
 mkdir -p /etc/puppet
 mkdir -p /etc/puppet/modules
