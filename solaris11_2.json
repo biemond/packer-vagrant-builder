@@ -57,7 +57,7 @@
         "exit<enter><wait>"
       ],
       "boot_wait": "105s",
-      "disk_size": 40960,
+      "disk_size": 80960,
       "guest_os_type": "Solaris11_64",
       "iso_checksum": "c09f40ed91d43b0adf109c124154a2b4",
       "iso_checksum_type": "md5",

@@ -3,6 +3,9 @@
 ## Tag version
 date > /etc/vagrant_box_build_time
 
+## increase swap
+# zfs set volsize=6g rpool/swap
+
 ## Add the opencsw package site
 PATH=/usr/bin:/usr/sbin:$PATH
 export PATH
