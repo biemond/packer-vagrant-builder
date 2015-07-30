@@ -34,9 +34,12 @@ export PATH=~/packer_0.8.1_darwin_amd64:$PATH
 * packer build fedora-20-x86_64.json
 * packer build ubuntu-12.04-amd64.json
 
-* packer build solaris10.json
+* packer build -only=virtualbox-iso solaris10.json
+* packer build -only=vmware-iso solaris10.json
+
 * packer build solaris11.json
-* packer build solaris11_2.json
+* packer build -only=virtualbox-iso solaris11_2.json
+* packer build -only=vmware-iso solaris11_2.json
 
 * packer build oracle-linux-6.5-x86_64.json
 * packer build oracle-linux-6.6-x86_64.json

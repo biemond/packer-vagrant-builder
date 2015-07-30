@@ -1,4 +1,9 @@
 {
+  "variables": {
+    "iso_location": "/Users/edwin/Downloads",
+    "harddisk_size": "40960",
+    "vm_name": "solaris10"
+  },
   "provisioners": [
     {
       "execute_command": "chmod +x {{ .Path }}; export {{.Vars}} && cat {{.Path}} | pfexec su ",
@@ -13,8 +18,15 @@
   ],
   "post-processors": [{
     "compression_level": 9,
-    "output": "build/solaris10-x86_64.box",
-    "type": "vagrant"
+    "output": "build/{{user `vm_name`}}-x86_64.box",
+    "type": "vagrant",
+    "only": ["virtualbox-iso"]
+  },
+  {
+    "compression_level": 9,
+    "output": "build/{{user `vm_name`}}-x86_64-{{.Provider}}.box",
+    "type": "vagrant",
+    "only": ["vmware-iso"]
   }],
   "builders": [
     {
@@ -27,7 +39,7 @@
         "b<wait>"
       ],
       "boot_wait": "10s",
-      "disk_size": 40960,
+      "disk_size": "{{user `harddisk_size`}}",
       "floppy_files": [
         "floppy/sysidcfg",
         "floppy/rules",
@@ -39,7 +51,7 @@
       "guest_os_type": "Solaris_64",
       "iso_checksum": "c27e5fe2531826192f110e2d9f1f5d73015edac6",
       "iso_checksum_type": "sha1",
-      "iso_url": "/Users/edwin/Downloads/sol-10-u11-ga-x86-dvd.iso",
+      "iso_url": "{{user `iso_location`}}/sol-10-u11-ga-x86-dvd.iso",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_port": 22,
@@ -63,6 +75,43 @@
           "1"
         ]
       ]
+    },
+    {
+      "type": "vmware-iso",
+      "boot_command": [
+        "e<wait>",
+        "e<wait>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><wait>",
+        "- nowin install -B install_media=cdrom<enter><wait>",
+        "b<wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": "{{user `harddisk_size`}}",
+      "floppy_files": [
+        "floppy/sysidcfg",
+        "floppy/rules",
+        "floppy/rules.ok",
+        "floppy/begin",
+        "floppy/profile",
+        "floppy/finish"
+      ],
+      "guest_os_type": "solaris10-64",
+      "iso_checksum": "c27e5fe2531826192f110e2d9f1f5d73015edac6",
+      "iso_checksum_type": "sha1",
+      "iso_url": "{{user `iso_location`}}/sol-10-u11-ga-x86-dvd.iso",
+      "output_directory": "packer-solaris10-vmware",
+      "shutdown_command": "pfexec /usr/sbin/init 5",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "tools_upload_flavor": "solaris",
+      "vm_name": "packer-solaris10",
+      "vmx_data": {
+        "cpuid.coresPerSocket": "1",
+        "memsize": "1536",
+        "numvcpus": "1"
+      }
     }
-  ]
+    ]
 }

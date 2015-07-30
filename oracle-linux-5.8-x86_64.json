@@ -1,0 +1,59 @@
+{
+  "variables": {
+    "iso_location": "/Users/edwin/Downloads",
+    "harddisk_size": "40960",
+    "vm_name": "OEL5_8",
+    "outputfile": "OEL5_8.box"
+  },
+  "builders": [{
+    "vm_name": "{{user `vm_name`}}",
+    "output_directory": "build/{{user `vm_name`}}",
+
+    "type": "virtualbox-iso",
+    "virtualbox_version_file": ".vbox_version",
+    "headless": false,
+
+    "guest_os_type": "Oracle_64",
+
+    "disk_size": "{{user `harddisk_size`}}",
+
+    "iso_url": "{{user `iso_location`}}/V31120-01.iso",
+    "iso_checksum": "1ec844c1090a417b741a9bf0d6dea240",
+    "iso_checksum_type": "md5",
+
+
+    "boot_command": [
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL5_8-x86_64/ks.cfg<enter><wait>"
+    ],
+    "boot_wait": "12s",
+
+    "http_directory": "http",
+    "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_port": 22,
+    "ssh_wait_timeout": "10000s",
+
+    "vboxmanage": [
+      ["modifyvm", "{{.Name}}", "--memory", "512"],
+      ["modifyvm", "{{.Name}}", "--cpus", "1"]
+    ],
+
+    "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p"
+  }],
+  "post-processors": [{
+    "compression_level": 9,
+    "output": "build/{{user `vm_name`}}-x86_64.box",
+    "type": "vagrant"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+    "scripts": [
+      "scripts/vagrant.sh",
+      "scripts/vboxguest.sh",
+      "scripts/compact.sh"
+    ]
+  }]
+}

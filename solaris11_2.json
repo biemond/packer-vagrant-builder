@@ -1,4 +1,9 @@
 {
+  "variables": {
+    "iso_location": "/Users/edwin/Downloads",
+    "harddisk_size": "80960",
+    "vm_name": "solaris11_2"
+  },
   "builders": [
     {
       "type": "virtualbox-iso",
@@ -57,11 +62,11 @@
         "exit<enter><wait>"
       ],
       "boot_wait": "105s",
-      "disk_size": 80960,
+      "disk_size": "{{user `harddisk_size`}}",
       "guest_os_type": "Solaris11_64",
       "iso_checksum": "c09f40ed91d43b0adf109c124154a2b4",
       "iso_checksum_type": "md5",
-      "iso_url": "/Users/edwin/Downloads/sol-11_2-text-x86.iso",
+      "iso_url": "{{user `iso_location`}}/sol-11_2-text-x86.iso",
       "output_directory": "packer-solaris11_2-virtualbox",
       "shutdown_command": "echo '/usr/sbin/poweroff' > shutdown.sh; pfexec bash -l shutdown.sh",
       "ssh_password": "1vagrant",
@@ -83,15 +88,95 @@
       ],
       "virtualbox_version_file": ".vbox_version",
       "vm_name": "packer-solaris-11_2"
-    }
-  ],
-  "post-processors": [
+    },
     {
-      "compression_level": 9,
-      "output": "build/solaris11_2-x86_64.box",
-      "type": "vagrant"
+      "boot_command": [
+        "<enter><wait>",
+        "3<enter><wait10>",
+        "<wait10><wait10><wait10><wait10>",
+        "1<enter><wait10><wait10><wait10><wait10>",
+        "<f2><wait><wait><wait>",
+        "<f2><wait>",
+        "<f2><wait>",
+        "<f2><wait>",
+        "-vagrant<wait><f2>",
+        "<f2><wait>",
+        "<tab><tab><tab><tab><tab><tab><tab><wait>",
+        "<f2><wait>",
+        "<f2><wait>",
+        "<tab><tab><tab><tab><tab><tab><tab><tab><tab><tab><wait>",
+        "<f2><wait>",
+        "<f2><wait>",
+        "<f2><wait>",
+        "<f2><wait>",
+        "<f2><wait>",
+        "vagrant123<tab><wait>",
+        "vagrant123<tab><wait>",
+        "vagrant<tab><wait>",
+        "vagrant<tab><wait>",
+        "1vagrant<tab><wait>",
+        "1vagrant<tab><wait>",
+        "<f2><wait>",
+        "<f2><wait>",
+        "<f2><wait>",
+        "<f2><wait>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<f8><wait10><wait10>",
+        "<enter><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10>",
+        "vagrant<enter><wait>",
+        "1vagrant<enter><wait>",
+        "sudo bash<enter><wait>",
+        "1vagrant<enter><wait>",
+        "echo 'vagrant ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers<enter><wait>",
+        "/usr/gnu/bin/sed -i 's/^.*requiretty/#Defaults requiretty/' /etc/sudoers<enter><wait>",
+        "exit<enter><wait>"
+      ],
+      "boot_wait": "105s",
+      "disk_size": "{{user `harddisk_size`}}",
+      "guest_os_type": "solaris11-64",
+      "iso_checksum": "c09f40ed91d43b0adf109c124154a2b4",
+      "iso_checksum_type": "md5",
+      "iso_url": "{{user `iso_location`}}/sol-11_2-text-x86.iso",
+      "output_directory": "packer-solaris11_2-vmware",
+      "shutdown_command": "sudo /usr/sbin/init 5",
+      "ssh_password": "1vagrant",
+      "ssh_port": 22,
+      "ssh_username": "vagrant",
+      "tools_upload_flavor": "solaris",
+      "type": "vmware-iso",
+      "vm_name": "packer-solaris11_2",
+      "vmx_data": {
+        "cpuid.coresPerSocket": "1",
+        "memsize": "2048",
+        "numvcpus": "1"
+      }
     }
   ],
+  "post-processors": [{
+    "compression_level": 9,
+    "output": "build/{{user `vm_name`}}-x86_64.box",
+    "type": "vagrant",
+    "only": ["virtualbox-iso"]
+  },
+  {
+    "compression_level": 9,
+    "output": "build/{{user `vm_name`}}-x86_64-{{.Provider}}.box",
+    "type": "vagrant",
+    "only": ["vmware-iso"]
+  }],
   "provisioners": [
     {
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
