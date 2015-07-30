@@ -4,10 +4,6 @@
 
 set -e
 
-wget http://public-yum.oracle.com/public-yum-el5.repo -P /etc/yum.repos.d/
-
-#yum update -y >/dev/null
-
 REPO_URL="http://yum.puppetlabs.com/el/5/products/x86_64/puppetlabs-release-5-11.noarch.rpm"
 
 if [ "$EUID" -ne "0" ]; then
