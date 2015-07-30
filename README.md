@@ -41,6 +41,7 @@ export PATH=~/packer_0.8.1_darwin_amd64:$PATH
 * packer build -only=virtualbox-iso solaris11_2.json
 * packer build -only=vmware-iso solaris11_2.json
 
+* packer build oracle-linux-5.8-x86_64.json
 * packer build oracle-linux-6.5-x86_64.json
 * packer build oracle-linux-6.6-x86_64.json
 * packer build -only=virtualbox-iso oracle-linux-6.6-x86_64.json

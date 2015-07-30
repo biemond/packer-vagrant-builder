@@ -52,6 +52,7 @@
     "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
     "scripts": [
       "scripts/vagrant.sh",
+      "scripts/puppet-bootstrap/oracle_5_x.sh",
       "scripts/vboxguest.sh",
       "scripts/compact.sh"
     ]
