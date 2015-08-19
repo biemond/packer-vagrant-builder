@@ -42,7 +42,7 @@
     "scripts": [
       "scripts/fedora/fix-slow-dns.sh",
       "scripts/sshd.sh",
-      "scripts/vagrant.sh",
+      "scripts/vagrant_without_update.sh",
       "scripts/puppet-bootstrap/fedora_20.sh",
       "scripts/vboxguest.sh",
       "scripts/fedora/cleanup.sh",
