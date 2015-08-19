@@ -4,7 +4,9 @@
 
 set -e
 
-REPO_URL="https://yum.puppetlabs.com/fedora/f20/products/x86_64/puppetlabs-release-20-10.noarch.rpm"
+#REPO_URL="https://yum.puppetlabs.com/fedora/f20/products/x86_64/puppetlabs-release-20-10.noarch.rpm"
+REPO_URL="https://yum.puppetlabs.com/puppetlabs-release-pc1-fedora-20.noarch.rpm"
+
 
 if [ "$EUID" -ne "0" ]; then
   echo "This script must be run as root." >&2
@@ -21,6 +23,9 @@ echo "Configuring PuppetLabs repo..."
 repo_path=$(mktemp)
 wget --output-document=${repo_path} ${REPO_URL} 2>/dev/null
 rpm -i ${repo_path} >/dev/null
+
+# LOCALE for newest facter
+echo "export LC_ALL=C" > /etc/profile.d/puppet_locale.sh
 
 # Install Puppet...
 echo "Installing puppet"
