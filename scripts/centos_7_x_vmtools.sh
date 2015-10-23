@@ -9,10 +9,10 @@ sed -i -e '/KERNEL_VERSION/{s/3, 11, 0/3, 10, 0/}' /tmp/vmfusion-archive/vmware-
 rm -rf /tmp/vmfusion-archive/vmware-tools-distrib/lib/modules/source/vmhgfs.tar
 tar cfv /tmp/vmfusion-archive/vmware-tools-distrib/lib/modules/source/vmhgfs.tar -C /tmp/vmfusion-archive/vmware-tools-distrib/lib/modules/source/ vmhgfs-only
 rm -rf /tmp/vmfusion-archive/vmware-tools-distrib/lib/modules/source/vmhgfs-only/
-/tmp/vmfusion-archive/vmware-tools-distrib/vmware-install.pl --default
+/tmp/vmfusion-archive/vmware-tools-distrib/vmware-install.pl --force-install
 umount /tmp/vmfusion
 rm -rf  /tmp/vmfusion
 rm -rf  /tmp/vmfusion-archive
 rm /home/vagrant/*.iso
 
-echo "answer AUTO_KMODS_ENABLED yes" | sudo tee -a /etc/vmware-tools/locations
+#echo "answer AUTO_KMODS_ENABLED yes" | sudo tee -a /etc/vmware-tools/locations

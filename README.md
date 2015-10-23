@@ -18,7 +18,7 @@ make sure you create folder called build in this repos
 
 Download packer at http://packer.io, tested it with Packer 0.7.5
 
-export PATH=~/packer_0.8.1_darwin_amd64:$PATH
+export PATH=~/packer_0.8.6_darwin_amd64:$PATH
 
 * packer build centos-5.8-x86_64.json
 * packer build centos-5.10-x86_64.json
