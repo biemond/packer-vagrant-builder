@@ -1,0 +1,104 @@
+{
+  "variables": {
+    "iso_location": "/Users/edwin/Downloads",
+    "harddisk_size": "80960",
+    "vm_name": "OEL7_2",
+    "compression": "6"
+  },
+  "builders": [{
+    "type": "virtualbox-iso",
+    "virtualbox_version_file": ".vbox_version",
+    "headless": false,
+
+    "guest_os_type": "Oracle_64",
+    "hard_drive_interface": "sata",
+
+    "disk_size": "{{user `harddisk_size`}}",
+
+    "iso_url": "{{user `iso_location`}}/V100082-01.iso",
+    "iso_checksum": "3B9D65D26576921372B1B35B03FD791D",
+    "iso_checksum_type": "MD5",
+
+    "boot_command": [
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL7_2-x86_64/ks.cfg<enter><wait>"
+    ],
+    "boot_wait": "12s",
+
+    "http_directory": "http",
+    "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_port": 22,
+    "ssh_wait_timeout": "10000s",
+
+    "vboxmanage": [
+      ["modifyvm", "{{.Name}}", "--memory", "1024"],
+      ["modifyvm", "{{.Name}}", "--cpus", "1"]
+    ],
+
+    "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p"
+  },
+  {
+    "type": "vmware-iso",
+    "headless": false,
+
+    "disk_size": "{{user `harddisk_size`}}",
+
+    "iso_url": "{{user `iso_location`}}/V100082-01.iso",
+    "iso_checksum": "3B9D65D26576921372B1B35B03FD791D",
+    "iso_checksum_type": "MD5",
+
+    "boot_command": [
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL7_2-x86_64/ks.cfg<enter><wait>"
+    ],
+    "boot_wait": "12s",
+
+    "http_directory": "http",
+    "tools_upload_flavor": "linux",
+
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_port": 22,
+    "ssh_wait_timeout": "10000s",
+
+    "vmx_data": {
+        "memsize": "1024",
+        "numvcpus": "1",
+        "vhv.enable": "TRUE"
+    },
+    "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+    "scripts": [
+      "scripts/vagrant.sh",
+      "scripts/puppet-bootstrap/centos_7_x.sh",
+      "scripts/vboxguest.sh",
+      "scripts/centos_7_x_network.sh",
+      "scripts/compact.sh"
+    ],
+    "override": {
+      "vmware-iso": {
+        "scripts": [
+          "scripts/vagrant.sh",
+          "scripts/puppet-bootstrap/centos_7_x.sh",
+          "scripts/centos_7_x_vmtools.sh",
+          "scripts/centos_7_x_network.sh",
+          "scripts/compact.sh"
+         ]
+       }
+    }
+  }],
+  "post-processors": [{
+    "output": "build/{{user `vm_name`}}-x86_64.box",
+    "type": "vagrant",
+    "only": ["virtualbox-iso"]
+  },
+  {
+    "output": "build/{{user `vm_name`}}-x86_64-{{.Provider}}.box",
+    "type": "vagrant",
+    "only": ["vmware-iso"]
+  }]
+}
