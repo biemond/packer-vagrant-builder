@@ -6,7 +6,7 @@ make sure you create folder called build in this repos
 * CentOS 6.4 (Minimal) 64-bit
 * CentOS 6.5 (Minimal) 64-bit
 * CentOS 6.6 (Minimal) 64-bit ( vbox & vmware)
-* CentOS 7.0 (Minimal) 64-bit ( vbox & vmware)
+* CentOS 7 (1503, 1511) (Minimal) 64-bit ( vbox & vmware)
 * CentOS 5.10 (network iso) 64-bit
 * CentOS 5.8 (network iso) 64-bit
 * Ubuntu 12.04 LTS (Precise Pangolin) 64-bit
@@ -28,8 +28,11 @@ export PATH=~/packer_0.8.6_darwin_amd64:$PATH
 * packer build -only=virtualbox-iso centos-6.6-x86_64.json
 * packer build -only=vmware-iso centos-6.6-x86_64.json
 
-* packer build -only=virtualbox-iso centos-7.0-x86_64.json
-* packer build -only=vmware-iso centos-7.0-x86_64.json
+* packer build -only=virtualbox-iso centos-7-1503-x86_64.json
+* packer build -only=vmware-iso centos-7-1503-x86_64.json
+
+* packer build -only=virtualbox-iso centos-7-1511-x86_64.json
+* packer build -only=vmware-iso centos-7-1511-x86_64.json
 
 * packer build fedora-20-x86_64.json
 * packer build ubuntu-12.04-amd64.json

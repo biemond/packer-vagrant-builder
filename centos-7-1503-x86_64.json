@@ -7,7 +7,7 @@
     "guest_os_type": "RedHat_64",
     "disk_size": 80960,
 
-    "iso_url": "http://mirrors.kernel.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1503-01.iso",
+    "iso_url": "http://mirror.nsc.liu.se/centos-store/7.1.1503/isos/x86_64/CentOS-7-x86_64-Minimal-1503-01.iso",
     "iso_checksum": "7c1e34e95c991175290d704dbdcc6531774cbecb",
     "iso_checksum_type": "sha1",
 
@@ -38,7 +38,7 @@
     "guest_os_type": "centos-64",
     "disk_size": 80960,
 
-    "iso_url": "http://mirrors.kernel.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1503-01.iso",
+    "iso_url": "http://mirror.nsc.liu.se/centos-store/7.1.1503/isos/x86_64/CentOS-7-x86_64-Minimal-1503-01.iso",
     "iso_checksum": "7c1e34e95c991175290d704dbdcc6531774cbecb",
     "iso_checksum_type": "sha1",
 
@@ -63,12 +63,12 @@
     "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p"
   }],
   "post-processors": [{
-    "output": "build/centos-7.0-x86_64.box",
+    "output": "build/centos-7-1503-x86_64.box",
     "type": "vagrant",
     "only": ["virtualbox-iso"]
   },
   {
-    "output": "build/centos-7.0-x86_64-{{.Provider}}.box",
+    "output": "build/centos-7-1503-x86_64-{{.Provider}}.box",
     "type": "vagrant",
     "only": ["vmware-iso"]
   }],
