@@ -29,7 +29,7 @@ echo "export LC_ALL=C" > /etc/profile.d/puppet_locale.sh
 # for selinux ruby versions
 echo "[rhel-7-server-optional-rpms]
 name = Red Hat Enterprise Linux 7 Server - Optional (RPMs)
-baseurl = http://mirror.centos.org/centos/7/os/x86_64/
+baseurl = http://mirrors.163.com/centos/7/os/x86_64/
 enabled = 1
 gpgcheck = 0" >/etc/yum.repos.d/centos7_optional.repo
 

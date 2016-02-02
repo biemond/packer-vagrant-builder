@@ -7,7 +7,7 @@
     "guest_os_type": "RedHat_64",
     "disk_size": 80960,
 
-    "iso_url": "http://mirrors.kernel.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1511.iso",
+    "iso_url": "../CentOS-7-x86_64-Minimal-1511.iso",
     "iso_checksum": "783eef50e1fb91c78901d0421d8114a29b998478",
     "iso_checksum_type": "sha1",
 
@@ -76,8 +76,10 @@
     "type": "shell",
     "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
     "scripts": [
+      "scripts/repo_163.sh",
       "scripts/vagrant.sh",
       "scripts/puppet-bootstrap/centos_7_x.sh",
+      "scripts/docker-bootstrap/centos_7_x.sh",
       "scripts/vboxguest.sh",
       "scripts/centos_7_x_network.sh",
       "scripts/compact.sh"
