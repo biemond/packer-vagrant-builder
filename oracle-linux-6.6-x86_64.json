@@ -3,7 +3,7 @@
     "iso_location": "/Users/edwin/Downloads",
     "harddisk_size": "80960",
     "vm_name": "OEL6_6",
-    "compression": 6
+    "compression": "6"
   },
   "builders": [{
     "vm_name": "{{user `vm_name`}}",
