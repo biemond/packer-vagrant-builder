@@ -7,7 +7,7 @@
     "guest_os_type": "RedHat_64",
     "disk_size": 80960,
 
-    "iso_url": "http://mirrors.kernel.org/centos/6.6/isos/x86_64/CentOS-6.6-x86_64-minimal.iso",
+    "iso_url": "http://mirror.nsc.liu.se/centos-store/6.6/isos/x86_64/CentOS-6.6-x86_64-minimal.iso",
     "iso_checksum": "4ed6c56d365bd3ab12cd88b8a480f4a62e7c66d2",
     "iso_checksum_type": "sha1",
 
@@ -38,7 +38,7 @@
     "guest_os_type": "centos-64",
     "disk_size": 80960,
 
-    "iso_url": "http://mirrors.kernel.org/centos/6.6/isos/x86_64/CentOS-6.6-x86_64-minimal.iso",
+    "iso_url": "http://mirror.nsc.liu.se/centos-store/6.6/isos/x86_64/CentOS-6.6-x86_64-minimal.iso",
     "iso_checksum": "4ed6c56d365bd3ab12cd88b8a480f4a62e7c66d2",
     "iso_checksum_type": "sha1",
 
