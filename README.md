@@ -4,6 +4,7 @@
 * CentOS 6.4 (Minimal) 64-bit
 * CentOS 6.5 (Minimal) 64-bit
 * CentOS 6.6 (Minimal) 64-bit ( vbox & vmware)
+* CentOS 6.7 (Minimal) 64-bit ( vbox & vmware) with BTRFS
 * CentOS 7 (1503, 1511) (Minimal) 64-bit ( vbox & vmware) with BTRFS
 * CentOS 5.10 (network iso) 64-bit
 * CentOS 5.8 (network iso) 64-bit
@@ -28,6 +29,9 @@ export PATH=~/packer_0.8.6_darwin_amd64:$PATH
 
 * packer build -only=virtualbox-iso centos-6.6-x86_64.json
 * packer build -only=vmware-iso centos-6.6-x86_64.json
+
+* packer build -only=virtualbox-iso centos-6.7-x86_64.json
+* packer build -only=vmware-iso centos-6.7-x86_64.json
 
 * packer build -only=virtualbox-iso centos-7-1503-x86_64.json
 * packer build -only=vmware-iso centos-7-1503-x86_64.json
