@@ -1,46 +1,106 @@
 {
-  "builders": [{
-    "type": "virtualbox-iso",
-    "virtualbox_version_file": ".vbox_version",
-    "headless": false,
-
-    "guest_os_type": "RedHat_64",
-    "disk_size": 80960,
-
-    "iso_url": "http://mirror.nl.leaseweb.net/centos/6.7/isos/x86_64/CentOS-6.7-x86_64-minimal.iso",
-    "iso_checksum": "2ed5ea551dffc3e4b82847b3cee1f6cd748e8071",
-    "iso_checksum_type": "sha1",
-
-    "boot_command": [
-      "<tab> text btrfs ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-6.7-x86_64/ks.cfg<enter><wait>"
+    "builders": [
+        {
+            "type": "virtualbox-iso",
+            "name": "centos-6.7-x86_64",
+            "boot_command": [
+                "<tab> text btrfs ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-6.7-x86_64/ks.cfg<enter><wait>"
+            ],
+            "boot_wait": "12s",
+            "disk_size": 80960,
+            "guest_additions_mode": "disable",
+            "guest_os_type": "RedHat_64",
+            "headless": false,
+            "http_directory": "http",
+            "iso_checksum": "2ed5ea551dffc3e4b82847b3cee1f6cd748e8071",
+            "iso_checksum_type": "sha1",
+            "iso_url": "http://mirror.nl.leaseweb.net/centos/6.7/isos/x86_64/CentOS-6.7-x86_64-minimal.iso",
+            "shutdown_command": "/sbin/halt -h -p",
+            "ssh_password": "vagrant",
+            "ssh_port": 22,
+            "ssh_username": "root",
+            "ssh_wait_timeout": "10000s",
+            "type": "virtualbox-iso",
+            "vboxmanage": [
+                [
+                    "modifyvm",
+                    "{{.Name}}",
+                    "--memory",
+                    "512"
+                ],
+                [
+                    "modifyvm",
+                    "{{.Name}}",
+                    "--cpus",
+                    "1"
+                ]
+            ],
+            "virtualbox_version_file": ".vbox_version"
+        },
+        {
+            "type": "qemu",
+            "name": "opc-centos-6.7-x86_64",
+            "accelerator": "kvm",
+            "boot_command": [
+                "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks_cloud_centos.cfg<enter><wait>"
+            ],
+            "disk_interface": "virtio",
+            "disk_size": 2500,
+            "format": "raw",
+            "headless": true,
+            "http_directory": "http",
+            "http_port_max": 10089,
+            "http_port_min": 10082,
+            "iso_checksum": "2ed5ea551dffc3e4b82847b3cee1f6cd748e8071",
+            "iso_checksum_type": "sha1",
+            "iso_url": "http://mirror.nl.leaseweb.net/centos/6.7/isos/x86_64/CentOS-6.7-x86_64-minimal.iso",
+            "shutdown_command": "/sbin/halt -h -p",
+            "net_device": "virtio-net",
+            "qemuargs": [
+                [
+                    "-m",
+                    "1024m"
+                ],
+                [
+                    "-machine",
+                    "type=pc,accel=kvm"
+                ],
+                [
+                    "-device",
+                    "virtio-net-pci,netdev=user.0"
+                ]
+            ],
+            "shutdown_command": "shutdown -P now",
+            "ssh_host_port_max": 2229,
+            "ssh_host_port_min": 2222,
+            "ssh_password": "vagrant",
+            "ssh_port": 22,
+            "ssh_username": "root",
+            "ssh_wait_timeout": "90m",
+            "vm_name": "centos6.7_opc"
+        }
     ],
-    "boot_wait": "12s",
-
-    "http_directory": "http",
-
-    "ssh_username": "vagrant",
-    "ssh_password": "vagrant",
-    "ssh_port": 22,
-    "ssh_wait_timeout": "10000s",
-
-    "vboxmanage": [
-      ["modifyvm", "{{.Name}}", "--memory", "512"],
-      ["modifyvm", "{{.Name}}", "--cpus", "1"]
+    "post-processors": [
+        {
+            "compression_level": 6,
+            "type": "vagrant",
+            "output": "build/{{user `name`}}.box",
+            "only": ["centos-6.7-x86_64"]
+        },
+        {
+            "compression_level": 6,
+            "type": "compress",
+            "output": "build/{{user `name`}}.tar.gz",
+            "only": ["opc-centos-6.7-x86_64"]
+        }
     ],
-
-    "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p"
-  }],
-  "post-processors": [{
-    "output": "build/opc-centos-6.7-x86_64.tar.gz",
-    "type": "compress",
-    "compression_level": 9
-  }],
-  "provisioners": [{
-    "type": "shell",
-    "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
-    "scripts": [
-      "scripts/centos_6_x_network.sh",
-      "scripts/compact.sh"
+    "provisioners": [
+        {
+            "scripts": [
+                "scripts/centos_6_x_network.sh",
+                "scripts/compact.sh"
+            ],
+            "type": "shell"
+        }
     ]
-  }]
 }

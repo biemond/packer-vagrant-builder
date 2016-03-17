@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-eth0
-sed -i "/^UUID/d" /etc/sysconfig/network-scripts/ifcfg-eth0
+echo "==> Remove the traces of the template MAC address and UUIDs"
+sed -i '/^\(HWADDR\|UUID\)=/d' /etc/sysconfig/network-scripts/ifcfg-e*
+
+#sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-eth0
+#sed -i "/^UUID/d" /etc/sysconfig/network-scripts/ifcfg-eth0
 
 rm /etc/sysconfig/selinux
 ln -s /etc/selinux/config /etc/sysconfig/selinux

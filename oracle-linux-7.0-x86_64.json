@@ -23,7 +23,7 @@
     "iso_checksum_type": "sha256",
 
     "boot_command": [
-      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL7_0-x86_64/ks.cfg<enter><wait>"
+      "<tab> net.ifnames=0 biosdevname=0 text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL7_0-x86_64/ks.cfg<enter><wait>"
     ],
     "boot_wait": "12s",
 
