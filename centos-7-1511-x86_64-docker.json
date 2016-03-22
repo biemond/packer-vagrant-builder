@@ -79,6 +79,7 @@
       "scripts/repo_163.sh",
       "scripts/vagrant.sh",
       "scripts/puppet-bootstrap/centos_7_x.sh",
+      "scripts/docker-bootstrap/centos_7_x.sh",
       "scripts/vboxguest.sh",
       "scripts/centos_7_x_network.sh",
       "scripts/compact.sh"
