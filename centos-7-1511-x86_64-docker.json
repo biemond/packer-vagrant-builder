@@ -12,7 +12,7 @@
     "iso_checksum_type": "sha1",
 
     "boot_command": [
-      "<tab> net.ifnames=0 biosdevname=0 text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-7.0-x86_64/ks.cfg<enter><wait>"
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-7.0-x86_64/ks.cfg<enter><wait>"
     ],
     "boot_wait": "12s",
 
@@ -43,7 +43,7 @@
     "iso_checksum_type": "sha1",
 
     "boot_command": [
-      "<tab> net.ifnames=0 biosdevname=0 text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-7.0-x86_64/ks.cfg<enter><wait>"
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-7.0-x86_64/ks.cfg<enter><wait>"
     ],
     "boot_wait": "12s",
 
@@ -79,6 +79,7 @@
       "scripts/repo_163.sh",
       "scripts/vagrant.sh",
       "scripts/puppet-bootstrap/centos_7_x.sh",
+      "scripts/docker-bootstrap/centos_7_x.sh",
       "scripts/vboxguest.sh",
       "scripts/centos_7_x_network.sh",
       "scripts/compact.sh"
