@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# yum remove -y open-vm-tools open-vm-tools-desktop
+
 mkdir /tmp/vmfusion
 mkdir /tmp/vmfusion-archive
 mount -o loop /home/vagrant/linux.iso /tmp/vmfusion
