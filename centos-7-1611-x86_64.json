@@ -5,7 +5,7 @@
     "headless": false,
 
     "guest_os_type": "RedHat_64",
-    "disk_size": 80960,
+    "disk_size": 100960,
 
     "iso_url": "http://mirror.nl.leaseweb.net/centos/7.3.1611/isos/x86_64/CentOS-7-x86_64-Minimal-1611.iso",
     "iso_checksum": "71a7aa147877b413497cdff5b1e0aa5bc0c9484f",
@@ -36,7 +36,7 @@
     "headless": true,
 
     "guest_os_type": "centos-64",
-    "disk_size": 80960,
+    "disk_size": 100960,
 
     "iso_url": "http://mirror.nl.leaseweb.net/centos/7.3.1611/isos/x86_64/CentOS-7-x86_64-Minimal-1611.iso",
     "iso_checksum": "71a7aa147877b413497cdff5b1e0aa5bc0c9484f",
