@@ -1,0 +1,97 @@
+{
+  "builders": [{
+    "type": "virtualbox-iso",
+    "virtualbox_version_file": ".vbox_version",
+    "headless": false,
+
+    "guest_os_type": "RedHat_64",
+    "disk_size": 80960,
+
+    "iso_url": "http://mirror.nl.leaseweb.net/centos/6.9/isos/x86_64/CentOS-6.9-x86_64-minimal.iso",
+    "iso_checksum": "b23d4d996d2cb5b370120588d5ea18a9cfba7881",
+    "iso_checksum_type": "sha1",
+
+    "boot_command": [
+      "<tab> text btrfs ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-6.9-x86_64/ks.cfg<enter><wait>"
+    ],
+    "boot_wait": "12s",
+
+    "http_directory": "http",
+    "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_port": 22,
+    "ssh_wait_timeout": "10000s",
+
+    "vboxmanage": [
+      ["modifyvm", "{{.Name}}", "--memory", "512"],
+      ["modifyvm", "{{.Name}}", "--cpus", "1"]
+    ],
+
+    "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p"
+  },
+  {
+    "type": "vmware-iso",
+    "headless": false,
+
+    "guest_os_type": "centos-64",
+    "disk_size": 80960,
+
+    "iso_url": "http://mirror.nl.leaseweb.net/centos/6.9/isos/x86_64/CentOS-6.9-x86_64-minimal.iso",
+    "iso_checksum": "b23d4d996d2cb5b370120588d5ea18a9cfba7881",
+    "iso_checksum_type": "sha1",
+
+    "boot_command": [
+      "<tab> text btrfs ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-6.9-x86_64/ks.cfg<enter><wait>"
+    ],
+    "boot_wait": "12s",
+
+    "http_directory": "http",
+    "tools_upload_flavor": "linux",
+
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_port": 22,
+    "ssh_wait_timeout": "10000s",
+
+    "vmx_data": {
+        "memsize": "512",
+        "numvcpus": "1",
+        "vhv.enable": "TRUE"
+    },
+    "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p"
+  }],
+  "post-processors": [{
+    "output": "build/centos-6.9-x86_64.box",
+    "type": "vagrant",
+    "only": ["virtualbox-iso"]
+  },
+  {
+    "output": "build/centos-6.9-x86_64-{{.Provider}}.box",
+    "type": "vagrant",
+    "only": ["vmware-iso"]
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+    "scripts": [
+      "scripts/vagrant.sh",
+      "scripts/puppet-bootstrap/centos_6_x.sh",
+      "scripts/vboxguest.sh",
+      "scripts/centos_6_x_network.sh",
+      "scripts/compact.sh"
+    ],
+    "override": {
+      "vmware-iso": {
+        "scripts": [
+          "scripts/vagrant.sh",
+          "scripts/puppet-bootstrap/centos_6_x.sh",
+          "scripts/centos_6_x_vmtools.sh",
+          "scripts/centos_6_x_network.sh",
+          "scripts/compact.sh"
+         ]
+       }
+    }
+  }]
+}
