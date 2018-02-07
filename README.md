@@ -8,6 +8,7 @@
 * CentOS 6.8 (Minimal) 64-bit ( vbox & vmware) with BTRFS + ext4
 * CentOS 7 (1503, 1511) (Minimal) 64-bit ( vbox & vmware) with BTRFS
 * CentOS 7 (1611) (Minimal) 64-bit ( vbox & vmware) with BTRFS + ext4
+* CentOS 7 (1708) (Minimal) 64-bit ( vbox & vmware) with BTRFS + ext4
 * CentOS 5.10 (network iso) 64-bit
 * CentOS 5.8 (network iso) 64-bit
 * Ubuntu 12.04 LTS (Precise Pangolin) 64-bit
@@ -17,6 +18,7 @@
 * Oracle Linux 7.0 64-bit
 * Oracle Linux 7.1 64-bit
 * Oracle Linux 7.2 64-bit with BTRFS
+* Oracle Linux 7.4 64-bit with BTRFS + GUI
 
 ## software
 Download [Packer](http://packer.io) at http://packer.io, tested it with Packer 0.8.6
@@ -50,6 +52,10 @@ export PATH=~/packer_0.8.6_darwin_amd64:$PATH
 * packer build -only=virtualbox-iso centos-7-1611-x86_64.json
 * packer build -only=vmware-iso centos-7-1611-x86_64.json
 
+* packer build -only=virtualbox-iso centos-7-1708-x86_64.json
+* packer build -only=vmware-iso centos-7-1708-x86_64.json
+
+
 * packer build fedora-20-x86_64.json
 * packer build ubuntu-12.04-amd64.json
 
@@ -70,6 +76,8 @@ export PATH=~/packer_0.8.6_darwin_amd64:$PATH
 * packer build -only=vmware-iso oracle-linux-7.1-x86_64.json
 * packer build -only=virtualbox-iso oracle-linux-7.2-x86_64.json
 * packer build -only=vmware-iso oracle-linux-7.2-x86_64.json
+* packer build -only=virtualbox-iso oracle-linux-7.4-x86_64.json
+* packer build -only=vmware-iso oracle-linux-7.4-x86_64.json
 
 
 Oracle Linux 7 has
